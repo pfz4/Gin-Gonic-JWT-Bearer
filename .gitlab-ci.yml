@@ -1,0 +1,10 @@
+stages:
+  - test
+
+test:
+  stage: test
+  tags:
+    - DockerLinux
+  image: golang:latest
+  script:
+    - go test ./test
