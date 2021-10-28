@@ -7,4 +7,5 @@ test:
     - DockerLinux
   image: golang:latest
   script:
+    - go get .
     - go test ./test
