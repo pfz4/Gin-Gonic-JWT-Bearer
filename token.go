@@ -23,7 +23,7 @@ type TokenInfo struct {
 	Roles  []string `json:"roles",omitempty`
 	Name string `json:"name",omitempty`
 	PreferredUsername string `json:"preferred_username",omitempty`
-	GivenName string `json:"preferred_name",omitempty`
+	GivenName string `json:"given_name",omitempty`
 	FamilyName string `json:"family_name",omitempty`
 	Email string `json:"email",omitempty`
 	jwt.StandardClaims
