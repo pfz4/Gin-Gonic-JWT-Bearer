@@ -15,7 +15,7 @@ type TokenInfo struct {
 	Type string `json:"typ",omitempty`
 	AuthorizedParty string `json:"azp",omitempty`
 	SessionState string `json:"session_state",omitempty`
-	AuthenticationContextClass int `json:"acr",omitempty`
+	AuthenticationContextClass string `json:"acr",omitempty`
 	AllowedOrigins []string `json:"allowed-origins",omitempty`
 	ResourceAccess map[string]interface{} `json:"resource_access",omitempty`
 	Scope string `json:"scope",omitempty`

@@ -23,6 +23,7 @@ func (conf *JwtBearer) RequireJWTBearer() gin.HandlerFunc {
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"msg": "The Token is invalid"})
 			c.Abort()
+			return
 		}
 		tokenInfo = conf.ValidateOrigin(tokenInfo, c.Request.Header.Get("Origin"))
 		if !tokenInfo.IsValid {
