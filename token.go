@@ -4,13 +4,13 @@ import (
 	"github.com/golang-jwt/jwt"
 	"fmt"
 	"strings"
+	"encoding/json"
 )
 
 type TokenInfo struct {
 	IsValid bool `json:"-"`
 	ErrorMessage string `json:"-"`
 
-	Audience []string `json:"aud",omitempty`
 	AuthenticationTime int `json:"auth_time",omitempty`
 	Type string `json:"typ",omitempty`
 	AuthorizedParty string `json:"azp",omitempty`
@@ -64,7 +64,10 @@ func (conf *JwtBearer)GetTokenInfoFromString(tokenString string)(*TokenInfo,erro
 			}, err;
 		}
 
-		if (!sliceContainsValue(tokenInfo.Audience,conf.Audience))&&conf.Audience!=""{
+		audiences := []string{tokenInfo.Audience}
+		err = json.Unmarshal([]byte(tokenInfo.Audience), &audiences)
+
+		if (!sliceContainsValue(audiences,conf.Audience))&&conf.Audience!=""{
 			tokenInfo.IsValid=false
 			tokenInfo.ErrorMessage="The Token Audience is invalid"
 		}
