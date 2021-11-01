@@ -93,7 +93,7 @@ func (conf *JwtBearer)GetTokenInfoFromAuthHeader(authHeader string)(*TokenInfo, 
 
 func (conf *JwtBearer)ValidateOrigin(tokenInfo *TokenInfo, originHeader string)(*TokenInfo){
 	if originHeader != ""{
-		if !wildcardSliceContainsValue(tokenInfo.AllowedOrigins, originHeader ){
+		if !matchWildcardSlice(tokenInfo.AllowedOrigins, originHeader ){
 			tokenInfo.IsValid=false
 			tokenInfo.ErrorMessage = "Invalid Request Origin"
 			return tokenInfo

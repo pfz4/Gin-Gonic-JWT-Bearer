@@ -26,6 +26,11 @@ func (conf *JwtBearer) RequireJWTBearer() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+		if !tokenInfo.IsValid {
+			c.JSON(http.StatusForbidden, gin.H{"msg": tokenInfo.ErrorMessage})
+			c.Abort()
+			return 
+		}
 		tokenInfo = conf.ValidateOrigin(tokenInfo, c.Request.Header.Get("Origin"))
 		if !tokenInfo.IsValid {
 			c.JSON(http.StatusForbidden, gin.H{"msg": tokenInfo.ErrorMessage})
@@ -46,6 +51,11 @@ func (conf *JwtBearer) RequireScope(scope string) gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"msg": "The Token is invalid"})
 			c.Abort()
 			return
+		}
+		if !tokenInfo.IsValid {
+			c.JSON(http.StatusForbidden, gin.H{"msg": tokenInfo.ErrorMessage})
+			c.Abort()
+			return 
 		}
 		tokenInfo = conf.ValidateOrigin(tokenInfo, c.Request.Header.Get("Origin"))
 		if !tokenInfo.IsValid {
@@ -72,6 +82,11 @@ func (conf *JwtBearer) RequireRole(role string) gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"msg": "The Token is invalid"})
 			c.Abort()
 			return
+		}
+		if !tokenInfo.IsValid {
+			c.JSON(http.StatusForbidden, gin.H{"msg": tokenInfo.ErrorMessage})
+			c.Abort()
+			return 
 		}
 		tokenInfo = conf.ValidateOrigin(tokenInfo, c.Request.Header.Get("Origin"))
 		if !tokenInfo.IsValid {
